@@ -1,0 +1,69 @@
+# Publishes the static game to GitHub Pages.
+# Repository setting required: Settings > Pages > Source = "GitHub Actions".
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Pages source is GitHub Actions. These permissions let deploy-pages
+# publish the artifact; they do not grant access to repository secrets.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Do not cancel a production deploy that is already in progress.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run unit tests
+        run: node --test
+
+  deploy:
+    name: Deploy
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # index.html, styles.css, and src/ are the whole site. Tests,
+      # workflows, the README, and package.json stay out of the artifact.
+      - name: Assemble publish directory
+        run: |
+          mkdir -p _site/src
+          cp index.html styles.css _site/
+          cp src/game.js src/main.js _site/src/
+          find _site -type f | sort
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

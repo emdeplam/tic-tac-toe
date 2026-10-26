@@ -2,6 +2,12 @@
 
 A two-player tic-tac-toe page with no runtime dependencies. The rules live in `src/game.js`; the page in `index.html` only renders that state.
 
+## Play online
+
+[Play online](https://emdeplam.github.io/tic-tac-toe/).
+
+The repository's Settings > Pages source must be set to "GitHub Actions".
+
 ## Run the app
 
 From the repository root:
