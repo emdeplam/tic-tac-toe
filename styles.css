@@ -1,0 +1,163 @@
+:root {
+  color-scheme: light;
+  --ink: #1c1712;
+  --muted: #6d6256;
+  --paper: #f6f0e6;
+  --card: #fffaf3;
+  --line: #241c16;
+  --x: #b42318;
+  --o: #1d4e89;
+  --win: #f6d56b;
+  --shadow: 0 24px 50px rgba(36, 28, 22, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+  background:
+    radial-gradient(circle at top, #fff8ec 0%, transparent 42%),
+    var(--paper);
+  color: var(--ink);
+  font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+}
+
+.shell {
+  width: min(100%, 440px);
+  padding: 32px 28px 28px;
+  background: var(--card);
+  border: 1px solid rgba(36, 28, 22, 0.08);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.kicker {
+  margin: 0;
+  color: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 8px 0 0;
+  font-size: clamp(2.4rem, 6vw, 3.2rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.status {
+  margin: 18px 0 22px;
+  min-height: 1.4em;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+.status[data-state="win"] {
+  color: var(--x);
+}
+
+.status[data-state="draw"] {
+  color: var(--muted);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
+  background: var(--line);
+  border-radius: 22px;
+}
+
+.cell {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cell:hover:not(:disabled) {
+  background: #fff;
+}
+
+.cell:focus-visible {
+  outline: 3px solid #e8a317;
+  outline-offset: 2px;
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell[data-mark="X"] {
+  color: var(--x);
+}
+
+.cell[data-mark="O"] {
+  color: var(--o);
+}
+
+.cell.win {
+  background: var(--win);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+#reset {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 28px;
+  background: var(--ink);
+  color: var(--card);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+#reset:hover {
+  background: #3a3129;
+}
+
+#reset:focus-visible {
+  outline: 3px solid #e8a317;
+  outline-offset: 3px;
+}
+
+.hint {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .shell {
+    padding: 24px 16px 20px;
+    border-radius: 22px;
+  }
+}

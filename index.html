@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <p class="kicker">Two players, one board</p>
+      <h1>Tic Tac Toe</h1>
+      <p id="status" class="status" role="status" aria-live="polite">X's turn</p>
+      <div id="board" class="board" role="group" aria-label="Tic tac toe board"></div>
+      <div class="actions">
+        <button id="reset" type="button">Reset</button>
+      </div>
+      <p class="hint">X starts. Take turns on empty squares. Three in a row wins.</p>
+    </main>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
